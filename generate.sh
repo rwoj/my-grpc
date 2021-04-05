@@ -1,5 +1,7 @@
 #!/bin/bash
 
+protoc greet/greetpb/greet.proto --go-grpc_out=.
+
 protoc greet/greetpb/greet.proto --go_out=plugins=grpc:.
 # option go_package="greet/greetpb"
 
