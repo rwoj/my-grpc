@@ -1,4 +1,4 @@
-module github.com/rwoj/my-grpc
+module github.com/rwoj/my-grpc/greet
 
 go 1.13
 
