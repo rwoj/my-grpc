@@ -20,10 +20,10 @@ func main() {
 
 	fmt.Println("Hello I'm a client")
 
-	tls := false
+	tls := true
 	opts := grpc.WithInsecure()
 	if tls {
-		certFile := "ssl/ca.crt" // Certificate Authority Trust certificate
+		certFile := "../ssl/ca.crt" // Certificate Authority Trust certificate
 		creds, sslErr := credentials.NewClientTLSFromFile(certFile, "")
 		if sslErr != nil {
 			log.Fatalf("Error while loading CA trust certificate: %v", sslErr)
@@ -54,8 +54,8 @@ func doUnary(c greetpb.GreetServiceClient) {
 	fmt.Println("Starting to do a Unary RPC...")
 	req := &greetpb.GreetRequest{
 		Greeting: &greetpb.Greeting{
-			FirstName: "Stephane",
-			LastName:  "Maarek",
+			FirstName: "Radek",
+			LastName:  "W",
 		},
 	}
 	res, err := c.Greet(context.Background(), req)
@@ -70,8 +70,8 @@ func doServerStreaming(c greetpb.GreetServiceClient) {
 
 	req := &greetpb.GreetManyTimesRequest{
 		Greeting: &greetpb.Greeting{
-			FirstName: "Stephane",
-			LastName:  "Maarek",
+			FirstName: "Radek",
+			LastName:  "W",
 		},
 	}
 
@@ -97,27 +97,27 @@ func doClientStreaming(c greetpb.GreetServiceClient) {
 	fmt.Println("Starting to do a Client Streaming RPC...")
 
 	requests := []*greetpb.LongGreetRequest{
-		&greetpb.LongGreetRequest{
+		{
 			Greeting: &greetpb.Greeting{
-				FirstName: "Stephane",
+				FirstName: "Radek",
 			},
 		},
-		&greetpb.LongGreetRequest{
+		{
 			Greeting: &greetpb.Greeting{
 				FirstName: "John",
 			},
 		},
-		&greetpb.LongGreetRequest{
+		{
 			Greeting: &greetpb.Greeting{
 				FirstName: "Lucy",
 			},
 		},
-		&greetpb.LongGreetRequest{
+		{
 			Greeting: &greetpb.Greeting{
 				FirstName: "Mark",
 			},
 		},
-		&greetpb.LongGreetRequest{
+		{
 			Greeting: &greetpb.Greeting{
 				FirstName: "Piper",
 			},
@@ -155,27 +155,27 @@ func doBiDiStreaming(c greetpb.GreetServiceClient) {
 	}
 
 	requests := []*greetpb.GreetEveryoneRequest{
-		&greetpb.GreetEveryoneRequest{
+		{
 			Greeting: &greetpb.Greeting{
-				FirstName: "Stephane",
+				FirstName: "Radek",
 			},
 		},
-		&greetpb.GreetEveryoneRequest{
+		{
 			Greeting: &greetpb.Greeting{
 				FirstName: "John",
 			},
 		},
-		&greetpb.GreetEveryoneRequest{
+		{
 			Greeting: &greetpb.Greeting{
 				FirstName: "Lucy",
 			},
 		},
-		&greetpb.GreetEveryoneRequest{
+		{
 			Greeting: &greetpb.Greeting{
 				FirstName: "Mark",
 			},
 		},
-		&greetpb.GreetEveryoneRequest{
+		{
 			Greeting: &greetpb.Greeting{
 				FirstName: "Piper",
 			},
@@ -189,7 +189,7 @@ func doBiDiStreaming(c greetpb.GreetServiceClient) {
 		for _, req := range requests {
 			fmt.Printf("Sending message: %v\n", req)
 			stream.Send(req)
-			time.Sleep(1000 * time.Millisecond)
+			time.Sleep(500 * time.Millisecond)
 		}
 		stream.CloseSend()
 	}()
@@ -218,8 +218,8 @@ func doUnaryWithDeadline(c greetpb.GreetServiceClient, timeout time.Duration) {
 	fmt.Println("Starting to do a UnaryWithDeadline RPC...")
 	req := &greetpb.GreetWithDeadlineRequest{
 		Greeting: &greetpb.Greeting{
-			FirstName: "Stephane",
-			LastName:  "Maarek",
+			FirstName: "Radek",
+			LastName:  "W",
 		},
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
